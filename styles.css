@@ -1,0 +1,242 @@
+
+:root {
+    --theme-color: #C271FF;
+    --font-family-base: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --black-color: #071629;
+    --gray-color: rgba(7, 22, 41, 0.501584);
+}
+
+* {
+    font-family: var(--font-family-base);
+}
+
+.social-media svg {
+    fill: white;
+}
+
+.play-image {
+    position: absolute;
+    left: 37%;
+    top: 30%;
+}
+
+.cover-video {
+    position: relative;
+}
+
+.free-memberships-title {
+    font-weight: 600;
+    font-size: 18px;
+}
+/* Colors */
+
+.bg-color-theme {
+    background-color: var(--theme-color);
+}
+
+.bg-color-dark {
+    background-color: var(--black-color);
+}
+
+.text-lh-26px {
+    line-height: 1.625rem;
+}
+
+.text-black-color {
+    color: var(--black-color);
+}
+
+.text-gray-color {
+    color: var(--gray-color);
+}
+
+.text-theme-color {
+    color: var(--theme-color);
+}
+
+.font-size-060 {
+    font-size: 0.60rem;
+    /*letter-spacing: 0.2px;*/
+}
+
+.font-size-0875 { /*14 px*/
+    font-size: 0.875rem;
+}
+
+.font-size-32px-rem {
+    font-size: 2rem;
+}
+
+.register-button:hover {
+    filter: brightness(95%);
+}
+
+
+header {
+    background-image: url(images/pic_1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+
+    height: 167vh;
+
+    /*background-size: 90rem auto;*/
+}
+
+.content-inside-header h1 {
+    font-size: 110px;
+    /*font-size: 8vw;*/
+}
+
+
+/* ===============
+Implementation carrusel responsive 
+==================*/
+        /*
+    code by Iatek LLC 2018 - CC 2.0 License - Attribution required
+    code customized by Azmind.com
+*/
+@media (min-width: 768px) and (max-width: 991px) {
+    /* Show 4th slide on md if col-md-4*/
+    .carusel-inner-multiples-slides .active.col-md-4.carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item {
+        position: absolute;
+        top: 0;
+        right: -33.3333%;  /*change this with javascript in the future*/
+        z-index: -1;
+        display: block;
+        visibility: visible;
+    }
+}
+@media (min-width: 576px) and (max-width: 768px) {
+    /* Show 3rd slide on sm if col-sm-6*/
+    .carusel-inner-multiples-slides .active.col-sm-6.carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item {
+        position: absolute;
+        top: 0;
+        right: -50%;  /*change this with javascript in the future*/
+        z-index: -1;
+        display: block;
+        visibility: visible;
+    }
+}
+@media (min-width: 576px) {
+    .carusel-inner-multiples-slides-item {
+        margin-right: 0;
+    }
+    /* show 2 items */
+    .carusel-inner-multiples-slides .active + .carusel-inner-multiples-slides-item {
+        display: block;
+    }
+    .carusel-inner-multiples-slides .carusel-inner-multiples-slides-item.active:not(.carousel-item-right):not(.carousel-item-left),
+    .carusel-inner-multiples-slides .carusel-inner-multiples-slides-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carusel-inner-multiples-slides-item {
+        transition: none;
+    }
+    .carusel-inner-multiples-slides .carousel-item-next {
+        position: relative;
+        transform: translate3d(0, 0, 0);
+    }
+    /* left or forward direction */
+    .active.carusel-inner-multiples-slides-item.carousel-item-left + .carousel-item-next.carousel-item-left,
+    .carousel-item-next.carousel-item-left + .carusel-inner-multiples-slides-item,
+    .carousel-item-next.carousel-item-left + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item {
+        position: relative;
+        transform: translate3d(-100%, 0, 0);
+        visibility: visible;
+    }
+    /* farthest right hidden item must be also positioned for animations */
+    .carusel-inner-multiples-slides .carousel-item-prev.carousel-item-right {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        display: block;
+        visibility: visible;
+    }
+    /* right or prev direction */
+    .active.carousel-item-right + .carousel-item-prev.carousel-item-right,
+    .carousel-item-prev.carousel-item-right + .carusel-inner-multiples-slides-item,
+    .carousel-item-prev.carousel-item-right + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item {
+        position: relative;
+        transform: translate3d(100%, 0, 0);
+        visibility: visible;
+        display: block;
+        visibility: visible;
+    }
+}
+/* MD */
+@media (min-width: 768px) {
+    /* show 3rd of 3 item slide */
+    .carusel-inner-multiples-slides .active + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item {
+        display: block;
+    }
+    .carusel-inner-multiples-slides .carusel-inner-multiples-slides-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item {
+        transition: none;
+    }
+    .carusel-inner-multiples-slides .carousel-item-next {
+        position: relative;
+        transform: translate3d(0, 0, 0);
+    }
+    /* left or forward direction */
+    .carousel-item-next.carousel-item-left + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item {
+        position: relative;
+        transform: translate3d(-100%, 0, 0);
+        visibility: visible;
+    }
+    /* right or prev direction */
+    .carousel-item-prev.carousel-item-right + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item {
+        position: relative;
+        transform: translate3d(100%, 0, 0);
+        visibility: visible;
+        display: block;
+        visibility: visible;
+    }
+}
+/* LG */
+@media (min-width: 991px) {
+    /* show 4th item */
+    .carusel-inner-multiples-slides .active + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item {
+        display: block;
+    }
+    .carusel-inner-multiples-slides .carusel-inner-multiples-slides-item.active:not(.carousel-item-right):not(.carousel-item-left) + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item {
+        transition: none;
+    }
+    /* Show 5th slide on lg if col-lg-3 */
+    .carusel-inner-multiples-slides .active.col-lg-3.carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item {
+        position: absolute;
+        top: 0;
+        right: -25%;  /*change this with javascript in the future*/
+        z-index: -1;
+        display: block;
+        visibility: visible;
+    }
+    /* left or forward direction */
+    .carousel-item-next.carousel-item-left + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item {
+        position: relative;
+        transform: translate3d(-100%, 0, 0);
+        visibility: visible;
+    }
+    /* right or prev direction //t - previous slide direction last item animation fix */
+    .carousel-item-prev.carousel-item-right + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item + .carusel-inner-multiples-slides-item {
+        position: relative;
+        transform: translate3d(100%, 0, 0);
+        visibility: visible;
+        display: block;
+        visibility: visible;
+    }
+}
+
+/* Loader */
+.loader {
+    border: 10px solid #f3f3f3;
+    border-top: 10px solid #C271FF;
+    border-radius: 50%;
+    width: 80px;
+    height: 80px;
+    animation: spin 2s linear infinite;
+    margin: auto;
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
