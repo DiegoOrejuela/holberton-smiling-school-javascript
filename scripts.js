@@ -1,6 +1,7 @@
 $(document).ready(function () {
     let quoteCasesLoader = $('#quotes-cases-loader');
     let popularTutorialsLoader = $('#popular-tutorials-loader');
+    let latestVideosLoader = $('#latest-videos-loader');
 
     if (quoteCasesLoader.length) {
         caruselBeforeSendRequest('carousel-inner-quotes-cases', 'quotes-cases-loader');
@@ -13,6 +14,13 @@ $(document).ready(function () {
         caruselBeforeSendRequest('carousel-inner-popular-tutorials', 'popular-tutorials-loader');
         setTimeout(function () {
             mostPopularTutorialsRequest();
+        }, 1000);
+    }
+
+    if (latestVideosLoader.length) {
+        caruselBeforeSendRequest('carousel-inner-latest-videos', 'latest-videos-loader');
+        setTimeout(function () {
+            latestVideosRequest();
         }, 1000);
     }
 });
@@ -48,7 +56,6 @@ function caruselAfterSuccessRequest (carouselInnerId, quotesCasesLoaderId) {
 function setQuotesHandler () {
     console.log($('.quotes-cases-item.active').index());
     if ($('.quotes-cases-item.active').index() === 1) {
-        //caruselAfterSendRequest();
         caruselBeforeSendRequest('carousel-inner-quotes-cases', 'quotes-cases-loader');
         setTimeout(function () {
             requestQuotes();
@@ -65,7 +72,6 @@ function requestQuotes () {
 
         //==== Callbacks
         success : function(json) {
-            console.log(json);
             caruselAfterSuccessRequest('carousel-inner-quotes-cases', 'quotes-cases-loader');
             setQuotes(json);
             
@@ -138,10 +144,8 @@ function mostPopularTutorialsRequest () {
 
         //==== Callbacks
         success : function(json) {
-            console.log(json);
             caruselAfterSuccessRequest('carousel-inner-popular-tutorials', 'popular-tutorials-loader');
-            mostPopularTutorials(json);
-            
+            setCaruselInnerMultiplesSlidesItems('carousel-inner-popular-tutorials', json);
         },
         error : function(xhr, status) {
             alert('Disculpe, existió un problema');
@@ -152,10 +156,40 @@ function mostPopularTutorialsRequest () {
     });
 }
 
-function mostPopularTutorials (json) {
-    let carouselInnerPopularTutorials = $('#carousel-inner-popular-tutorials');
+/* ===========================
+    Most popular tutorials with carousel
+=============================== */
 
-    carouselInnerPopularTutorials.empty();
+function latestVideosRequest() {
+    $.ajax({
+        //==== Settings 
+        url : 'https://smileschool-api.hbtn.info/latest-videos',
+        type : 'GET',
+        dataType : 'json',
+
+        //==== Callbacks
+        success : function(json) {
+            let latestVideosJson = json.concat(json);
+            caruselAfterSuccessRequest('carousel-inner-latest-videos', 'latest-videos-loader');
+            setCaruselInnerMultiplesSlidesItems('carousel-inner-latest-videos', latestVideosJson);
+        },
+        error : function(xhr, status) {
+            alert('Disculpe, existió un problema');
+        },
+        complete : function(xhr, status) {
+            //alert('Petición realizada');
+        }
+    });
+}
+
+/* ===========================
+    Shared Carousel
+=============================== */
+
+function setCaruselInnerMultiplesSlidesItems (carouselInnerId, json) {
+    let carouselInner = $(`#${carouselInnerId}`);
+
+    carouselInner.empty();
 
     $.each(json, function(index, item) {
         // ==== Calculated Components
@@ -179,11 +213,11 @@ function mostPopularTutorials (json) {
 
 
         // ==== Append carousel Inner Popular Tutorials item
-        carouselInnerPopularTutorials.append(
+        carouselInner.append(
             $('<div/>', {
                 'class': index === 0 ? 
-                    'carousel-item carusel-inner-multiples-slides-item carousel-inner-popular-tutorials-item col-12 col-sm-6 col-md-4 col-lg-3 active' : 
-                    'carousel-item carusel-inner-multiples-slides-item carousel-inner-popular-tutorials-item col-12 col-sm-6 col-md-4 col-lg-3'
+                    `carousel-item carusel-inner-multiples-slides-item ${carouselInnerId}-item col-12 col-sm-6 col-md-4 col-lg-3 active` : 
+                    `carousel-item carusel-inner-multiples-slides-item ${carouselInnerId}-item col-12 col-sm-6 col-md-4 col-lg-3`
             }).append(
                 $('<div/>', {
                     'class': 'd-flex flex-column mr-3'
@@ -251,3 +285,4 @@ function mostPopularTutorials (json) {
         )
     });
 }
+
