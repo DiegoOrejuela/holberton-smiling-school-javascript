@@ -1,7 +1,7 @@
 
 :root {
     --theme-color: #C271FF;
-    --font-family-base: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-family-base: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     --black-color: #071629;
     --gray-color: rgba(7, 22, 41, 0.501584);
 }
@@ -59,12 +59,42 @@
     /*letter-spacing: 0.2px;*/
 }
 
+.font-size-12px-rem {
+    font-size: 0.75rem;
+}
+
 .font-size-0875 { /*14 px*/
     font-size: 0.875rem;
 }
 
+.font-size-18px-rem {
+    font-size: 1.125rem;
+}
+
 .font-size-32px-rem {
     font-size: 2rem;
+}
+
+.font-size-75px-rem {
+    font-size: 4.688rem;
+}
+
+.font-size-60px-rem {
+    font-size: 3.75rem;
+}
+
+.font-size-44px-rem {
+    font-size: 2.75rem;
+}
+
+.letter-spacing-01 {
+    letter-spacing: 0.1rem;
+}
+.border-gray {
+    border-color: gray !important;
+}
+.opacity-05 {
+    opacity: 0.5;
 }
 
 .register-button:hover {
@@ -72,8 +102,19 @@
 }
 
 
-header {
+header.homepage {
     background-image: url(images/pic_1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+
+    height: 167vh;
+
+    /*background-size: 90rem auto;*/
+}
+
+header.pricing {
+    background-image: url(images/pic_2.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
