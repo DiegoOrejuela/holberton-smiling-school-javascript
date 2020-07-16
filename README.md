@@ -63,8 +63,6 @@ Build SmileSchool web site template, with homepage, princing and courses pages. 
 * Bootstrap
 * Javascript
 
-<i><small><a href="https://github.com/holbertonschool/W3C-Validator">W3C-Validator</a> was used to follow HTML and CSS standards</small></i>
-
 <!-- USAGE -->
 ## Usage
 
