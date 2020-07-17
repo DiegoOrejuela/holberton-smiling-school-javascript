@@ -17,6 +17,8 @@
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel='stylesheet' href='styles.css'>
+
+    <script src="scripts.js"></script>
 </head>
 <body>
     <!-- header -->
@@ -64,9 +66,8 @@
         <!-- search panel -->
         <div class="bg-color-theme">
             <div class="container">
-                <form class="form-group row mb-0 pt-4 pb-4">
-                    <!-- keywords -->
-                    <div class="form-group col-4 mb-0 mt-0">
+                <div class="row mb-0 pt-4 pb-4">
+                    <div class="col-lg-4 col-md-12 col-12 mb-0 mt-0">
                         <label class="d-block font-size-12px-rem text-white font-weight-bold" for="exampleInputEmail1">KEYWORDS</label>
                         <div class="input-group mb-2">
                             <div class="input-group-prepend">
@@ -74,12 +75,12 @@
                                     <img src="images/search_icon.png" alt="" width="20" height="20">
                                 </div>
                             </div>
-                            <input type="text" class="form-control form-control-lg" id="keyword" placeholder="Search by keywords" aria-describedby="keyword">
+                            <input type="search" onsearch="onSearchKeywords()" class="form-control form-control-lg" id="keyword" placeholder="Search by keywords" aria-describedby="keyword">
                         </div>
                     </div>
-                    <div class="form-group col-4 mb-0 mt-0">
+                    <div class="col-lg-4 col-md-6 col-12 mb-0 mt-0">
                         <label class="d-block font-size-12px-rem text-white font-weight-bold" for="exampleInputEmail1">TOPIC</label>
-                        <select class="form-control form-control-lg">
+                        <select id='topic' onchange="onchangeTopic()" class="form-control form-control-lg">
                             <div class="dropdown-menu">
                                 <option class="dropdown-item">All</option>
                                 <option class="dropdown-item">Novice</option>
@@ -89,9 +90,9 @@
                             
                         </select>
                     </div>
-                    <div class="form-group col-4 mb-0 mt-0">
+                    <div class="col-lg-4 col-md-6 col-12mb-0 mt-0">
                         <label class="d-block font-size-12px-rem text-white font-weight-bold" for="exampleInputEmail1">SORT BY</label>
-                        <select class="form-control form-control-lg">
+                        <select id='sort-by' onchange="onchangeSortBy()" class="form-control form-control-lg">
                             <div class="dropdown-menu">
                                 <option class="dropdown-item">Most Popular</option>
                                 <option class="dropdown-item">Most Recent</option>
@@ -100,402 +101,53 @@
                             
                         </select>
                     </div>
-                </form>
-                
-                
+                </div>
             </div>
         </div>
 
-        <!-- search panel -->
+        <!-- Results Search -->
         <div class="container p-5">
-            <span class="d-block pb-5 text-gray-color">11 videos</span>
-            <div class="row">
-                <div class="col-3 mb-5">
-                    <!-- video 1 -->
-                    <div class="video-1 d-flex flex-column mr-3">
-                        <div class="cover-video">
-                            <img src="images/thumbnail_4.jpg" alt="profile 1" width="255" height="154" class="rounded mb-2">
-                            <img class="play-image" src="images/play.png" alt="play" width="64" height="64">
-                        </div>
-                        
-                        <div class="pl-3 pr-3">
-                            <span class="d-block font-weight-bold mb-2">Diagonal Smile</span>
-                            <p class="mb-2 text-gray-color font-size-0875">
-                                Lorem ipsum dolor sit amet, consect<br>
-                                adipiscing elit, sed do eiusmod.
-                            </p>
-                            <div class="author-post d-flex">
-                                <img src="images/profile_1.jpg" alt="profile 1" width="30" height="30" class="rounded-pill mr-3 mb-2">
-                                <div class="d-flex align-items-center">
-                                    <span class="text-theme-color font-size-0875">Phillip Massey</span>
-                                </div>
+            <div id="search-videos-loader" class="loader mb-5"></div>
+            <div id='result-query-div'>
+                <span id='count-videos-result-search' class="d-block pb-5 text-gray-color">11 videos</span>
+                <div id='result-query' class="row">
+                    <!-- <div class="col-3 mb-5">
+                        <div class="video-1 d-flex flex-column mr-3">
+                            <div class="cover-video">
+                                <img src="images/thumbnail_4.jpg" alt="profile 1" width="255" height="154" class="rounded mb-2">
+                                <img class="play-image" src="images/play.png" alt="play" width="64" height="64">
                             </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="starts-video d-flex align-items-center mr-5">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_off.png" alt="" width="15" height="15">
+                            
+                            <div class="pl-3 pr-3">
+                                <span class="d-block font-weight-bold mb-2">Diagonal Smile</span>
+                                <p class="mb-2 text-gray-color font-size-0875">
+                                    Lorem ipsum dolor sit amet, consect<br>
+                                    adipiscing elit, sed do eiusmod.
+                                </p>
+                                <div class="author-post d-flex">
+                                    <img src="images/profile_1.jpg" alt="profile 1" width="30" height="30" class="rounded-pill mr-3 mb-2">
+                                    <div class="d-flex align-items-center">
+                                        <span class="text-theme-color font-size-0875">Phillip Massey</span>
+                                    </div>
                                 </div>
-                                <div class="time-video text-theme-color d-flex align-items-center">
-                                    <span>8 min</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 mb-5">
-                    <!-- video 2 -->
-                    <div class="video-1 d-flex flex-column mr-3">
-                        <div class="cover-video">
-                            <img src="images/thumbnail_3.jpg" alt="profile 1" width="255" height="154" class="rounded mb-2">
-                            <img class="play-image" src="images/play.png" alt="play" width="64" height="64">
-                        </div>
-                        
-                        <div class="pl-3 pr-3">
-                            <span class="d-block font-weight-bold mb-2">Sad Smile</span>
-                            <p class="mb-2 text-gray-color font-size-0875">
-                                Lorem ipsum dolor sit amet, consect<br>
-                                adipiscing elit, sed do eiusmod.
-                            </p>
-                            <div class="author-post d-flex">
-                                <img src="images/profile_1.jpg" alt="profile 1" width="30" height="30" class="rounded-pill mr-3 mb-2">
-                                <div class="d-flex align-items-center">
-                                    <span class="text-theme-color font-size-0875">Phillip Massey</span>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="starts-video d-flex align-items-center mr-5">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_off.png" alt="" width="15" height="15">
-                                </div>
-                                <div class="time-video text-theme-color d-flex align-items-center">
-                                    <span>8 min</span>
+                                <div class="d-flex justify-content-between">
+                                    <div class="starts-video d-flex align-items-center mr-5">
+                                        <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
+                                        <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
+                                        <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
+                                        <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
+                                        <img src="images/star_off.png" alt="" width="15" height="15">
+                                    </div>
+                                    <div class="time-video text-theme-color d-flex align-items-center">
+                                        <span>8 min</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="col-3 mb-5">
-                    <!-- video 3 -->
-                    <div class="video-1 d-flex flex-column mr-3">
-                        <div class="cover-video">
-                            <img src="images/thumbnail_1.jpg" alt="profile 1" width="255" height="154" class="rounded mb-2">
-                            <img class="play-image" src="images/play.png" alt="play" width="64" height="64">
-                        </div>
-                        
-                        <div class="pl-3 pr-3">
-                            <span class="d-block font-weight-bold mb-2">Natural Smile</span>
-                            <p class="mb-2 text-gray-color font-size-0875">
-                                Lorem ipsum dolor sit amet, consect<br>
-                                adipiscing elit, sed do eiusmod.
-                            </p>
-                            <div class="author-post d-flex">
-                                <img src="images/profile_1.jpg" alt="profile 1" width="30" height="30" class="rounded-pill mr-3 mb-2">
-                                <div class="d-flex align-items-center">
-                                    <span class="text-theme-color font-size-0875">Phillip Massey</span>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="starts-video d-flex align-items-center mr-5">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_off.png" alt="" width="15" height="15">
-                                </div>
-                                <div class="time-video text-theme-color d-flex align-items-center">
-                                    <span>8 min</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 mb-5">
-                    <!-- video 4 -->
-                    <div class="video-1 d-flex flex-column mr-3">
-                        <div class="cover-video">
-                            <img src="images/thumbnail_2.jpg" alt="profile 1" width="255" height="154" class="rounded mb-2">
-                            <img class="play-image" src="images/play.png" alt="play" width="64" height="64">
-                        </div>
-                        
-                        <div class="pl-3 pr-3">
-                            <span class="d-block font-weight-bold mb-2">Happy Smile</span>
-                            <p class="mb-2 text-gray-color font-size-0875">
-                                Lorem ipsum dolor sit amet, consect
-                                adipiscing elit, sed do eiusmod.
-                            </p>
-                            <div class="author-post d-flex">
-                                <img src="images/profile_1.jpg" alt="profile 1" width="30" height="30" class="rounded-pill mr-3 mb-2">
-                                <div class="d-flex align-items-center">
-                                    <span class="text-theme-color font-size-0875">Phillip Massey</span>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="starts-video d-flex align-items-center mr-5">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_off.png" alt="" width="15" height="15">
-                                </div>
-                                <div class="time-video text-theme-color d-flex align-items-center">
-                                    <span>8 min</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 mb-5">
-                    <!-- video 1 -->
-                    <div class="video-1 d-flex flex-column mr-3">
-                        <div class="cover-video">
-                            <img src="images/thumbnail_4.jpg" alt="profile 1" width="255" height="154" class="rounded mb-2">
-                            <img class="play-image" src="images/play.png" alt="play" width="64" height="64">
-                        </div>
-                        
-                        <div class="pl-3 pr-3">
-                            <span class="d-block font-weight-bold mb-2">Diagonal Smile</span>
-                            <p class="mb-2 text-gray-color font-size-0875">
-                                Lorem ipsum dolor sit amet, consect<br>
-                                adipiscing elit, sed do eiusmod.
-                            </p>
-                            <div class="author-post d-flex">
-                                <img src="images/profile_1.jpg" alt="profile 1" width="30" height="30" class="rounded-pill mr-3 mb-2">
-                                <div class="d-flex align-items-center">
-                                    <span class="text-theme-color font-size-0875">Phillip Massey</span>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="starts-video d-flex align-items-center mr-5">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_off.png" alt="" width="15" height="15">
-                                </div>
-                                <div class="time-video text-theme-color d-flex align-items-center">
-                                    <span>8 min</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 mb-5">
-                    <!-- video 2 -->
-                    <div class="video-1 d-flex flex-column mr-3">
-                        <div class="cover-video">
-                            <img src="images/thumbnail_3.jpg" alt="profile 1" width="255" height="154" class="rounded mb-2">
-                            <img class="play-image" src="images/play.png" alt="play" width="64" height="64">
-                        </div>
-                        
-                        <div class="pl-3 pr-3">
-                            <span class="d-block font-weight-bold mb-2">Sad Smile</span>
-                            <p class="mb-2 text-gray-color font-size-0875">
-                                Lorem ipsum dolor sit amet, consect<br>
-                                adipiscing elit, sed do eiusmod.
-                            </p>
-                            <div class="author-post d-flex">
-                                <img src="images/profile_1.jpg" alt="profile 1" width="30" height="30" class="rounded-pill mr-3 mb-2">
-                                <div class="d-flex align-items-center">
-                                    <span class="text-theme-color font-size-0875">Phillip Massey</span>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="starts-video d-flex align-items-center mr-5">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_off.png" alt="" width="15" height="15">
-                                </div>
-                                <div class="time-video text-theme-color d-flex align-items-center">
-                                    <span>8 min</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 mb-5">
-                    <!-- video 3 -->
-                    <div class="video-1 d-flex flex-column mr-3">
-                        <div class="cover-video">
-                            <img src="images/thumbnail_1.jpg" alt="profile 1" width="255" height="154" class="rounded mb-2">
-                            <img class="play-image" src="images/play.png" alt="play" width="64" height="64">
-                        </div>
-                        
-                        <div class="pl-3 pr-3">
-                            <span class="d-block font-weight-bold mb-2">Natural Smile</span>
-                            <p class="mb-2 text-gray-color font-size-0875">
-                                Lorem ipsum dolor sit amet, consect<br>
-                                adipiscing elit, sed do eiusmod.
-                            </p>
-                            <div class="author-post d-flex">
-                                <img src="images/profile_1.jpg" alt="profile 1" width="30" height="30" class="rounded-pill mr-3 mb-2">
-                                <div class="d-flex align-items-center">
-                                    <span class="text-theme-color font-size-0875">Phillip Massey</span>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="starts-video d-flex align-items-center mr-5">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_off.png" alt="" width="15" height="15">
-                                </div>
-                                <div class="time-video text-theme-color d-flex align-items-center">
-                                    <span>8 min</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 mb-5">
-                    <!-- video 4 -->
-                    <div class="video-1 d-flex flex-column mr-3">
-                        <div class="cover-video">
-                            <img src="images/thumbnail_2.jpg" alt="profile 1" width="255" height="154" class="rounded mb-2">
-                            <img class="play-image" src="images/play.png" alt="play" width="64" height="64">
-                        </div>
-                        
-                        <div class="pl-3 pr-3">
-                            <span class="d-block font-weight-bold mb-2">Happy Smile</span>
-                            <p class="mb-2 text-gray-color font-size-0875">
-                                Lorem ipsum dolor sit amet, consect
-                                adipiscing elit, sed do eiusmod.
-                            </p>
-                            <div class="author-post d-flex">
-                                <img src="images/profile_1.jpg" alt="profile 1" width="30" height="30" class="rounded-pill mr-3 mb-2">
-                                <div class="d-flex align-items-center">
-                                    <span class="text-theme-color font-size-0875">Phillip Massey</span>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="starts-video d-flex align-items-center mr-5">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_off.png" alt="" width="15" height="15">
-                                </div>
-                                <div class="time-video text-theme-color d-flex align-items-center">
-                                    <span>8 min</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 mb-5">
-                    <!-- video 1 -->
-                    <div class="video-1 d-flex flex-column mr-3">
-                        <div class="cover-video">
-                            <img src="images/thumbnail_4.jpg" alt="profile 1" width="255" height="154" class="rounded mb-2">
-                            <img class="play-image" src="images/play.png" alt="play" width="64" height="64">
-                        </div>
-                        
-                        <div class="pl-3 pr-3">
-                            <span class="d-block font-weight-bold mb-2">Diagonal Smile</span>
-                            <p class="mb-2 text-gray-color font-size-0875">
-                                Lorem ipsum dolor sit amet, consect<br>
-                                adipiscing elit, sed do eiusmod.
-                            </p>
-                            <div class="author-post d-flex">
-                                <img src="images/profile_1.jpg" alt="profile 1" width="30" height="30" class="rounded-pill mr-3 mb-2">
-                                <div class="d-flex align-items-center">
-                                    <span class="text-theme-color font-size-0875">Phillip Massey</span>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="starts-video d-flex align-items-center mr-5">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_off.png" alt="" width="15" height="15">
-                                </div>
-                                <div class="time-video text-theme-color d-flex align-items-center">
-                                    <span>8 min</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 mb-5">
-                    <!-- video 2 -->
-                    <div class="video-1 d-flex flex-column mr-3">
-                        <div class="cover-video">
-                            <img src="images/thumbnail_3.jpg" alt="profile 1" width="255" height="154" class="rounded mb-2">
-                            <img class="play-image" src="images/play.png" alt="play" width="64" height="64">
-                        </div>
-                        
-                        <div class="pl-3 pr-3">
-                            <span class="d-block font-weight-bold mb-2">Sad Smile</span>
-                            <p class="mb-2 text-gray-color font-size-0875">
-                                Lorem ipsum dolor sit amet, consect<br>
-                                adipiscing elit, sed do eiusmod.
-                            </p>
-                            <div class="author-post d-flex">
-                                <img src="images/profile_1.jpg" alt="profile 1" width="30" height="30" class="rounded-pill mr-3 mb-2">
-                                <div class="d-flex align-items-center">
-                                    <span class="text-theme-color font-size-0875">Phillip Massey</span>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="starts-video d-flex align-items-center mr-5">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_off.png" alt="" width="15" height="15">
-                                </div>
-                                <div class="time-video text-theme-color d-flex align-items-center">
-                                    <span>8 min</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3 mb-5">
-                    <!-- video 3 -->
-                    <div class="video-1 d-flex flex-column mr-3">
-                        <div class="cover-video">
-                            <img src="images/thumbnail_1.jpg" alt="profile 1" width="255" height="154" class="rounded mb-2">
-                            <img class="play-image" src="images/play.png" alt="play" width="64" height="64">
-                        </div>
-                        
-                        <div class="pl-3 pr-3">
-                            <span class="d-block font-weight-bold mb-2">Natural Smile</span>
-                            <p class="mb-2 text-gray-color font-size-0875">
-                                Lorem ipsum dolor sit amet, consect<br>
-                                adipiscing elit, sed do eiusmod.
-                            </p>
-                            <div class="author-post d-flex">
-                                <img src="images/profile_1.jpg" alt="profile 1" width="30" height="30" class="rounded-pill mr-3 mb-2">
-                                <div class="d-flex align-items-center">
-                                    <span class="text-theme-color font-size-0875">Phillip Massey</span>
-                                </div>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <div class="starts-video d-flex align-items-center mr-5">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_on.png" alt="" width="15" height="15" class="mr-1">
-                                    <img src="images/star_off.png" alt="" width="15" height="15">
-                                </div>
-                                <div class="time-video text-theme-color d-flex align-items-center">
-                                    <span>8 min</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </div> -->
                 </div>
             </div>
+            
         </div>
     </main>
 
